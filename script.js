@@ -40,4 +40,6 @@ const getCountry = function (country) {
   });
 };
 
+getCountry('bangladesh');
 getCountry('united kingdom');
+getCountry('germany');
