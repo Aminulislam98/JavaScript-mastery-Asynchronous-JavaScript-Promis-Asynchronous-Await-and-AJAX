@@ -43,3 +43,7 @@ const getCountry = function (country) {
 getCountry('bangladesh');
 getCountry('united kingdom');
 getCountry('germany');
+
+// How the Web works: Request and response
+//  TCP stands for transmission control protocol
+// IP stands for Internat protocol
