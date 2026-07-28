@@ -82,7 +82,6 @@ const renderCountry = function (data, neighbour) {
 
 const renderError = function (msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
-  countriesContainer.style.opacity = 1;
 };
 
 const getCountryData = function (country) {
@@ -94,17 +93,20 @@ const getCountryData = function (country) {
       const neighbor = data[0].borders[0];
       if (!neighbor) return;
       // Country 2
-      fetch(
+      return fetch(
         `https://countries-api-836d.onrender.com/countries/alpha/${neighbor}`,
       )
         .then(response => response.json())
-        .then(data => renderCountry(data, 'neighbour'))
-        .catch(err => {
-          console.error(`${err} 🔥`);
-          renderError(`Something went wrong ${err.message}. Try again!`);
-        });
+        .then(data => renderCountry(data, 'neighbour'));
+    })
+    .catch(err => {
+      console.error(`${err} 🔥`);
+      renderError(`Something went wrong ${err.message}. Try again!`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
     });
 };
 btn.addEventListener('click', function () {
-  getCountryData('bangladesh');
+  getCountryData('bangladeshi');
 });
