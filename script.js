@@ -58,7 +58,7 @@ const renderCountry = function (data, neighbour) {
 //     request2.addEventListener('load', function (country) {
 //       const data2 = JSON.parse(this.responseText);
 //       console.log(data2);
-//       renderCountry(data2, 'neighbour');
+//       renderCountry(data2, 'Neighbour');
 //     });
 //   });
 // };
@@ -80,12 +80,15 @@ const renderCountry = function (data, neighbour) {
 // );
 // console.log(request);
 
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+  countriesContainer.style.opacity = 1;
+};
+
 const getCountryData = function (country) {
   // country 1
   fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
-    .then(function (response) {
-      return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
       renderCountry(data[0]);
       const neighbor = data[0].borders[0];
@@ -95,7 +98,13 @@ const getCountryData = function (country) {
         `https://countries-api-836d.onrender.com/countries/alpha/${neighbor}`,
       )
         .then(response => response.json())
-        .then(data => renderCountry(data, 'neighbour'));
+        .then(data => renderCountry(data, 'neighbour'))
+        .catch(err => {
+          console.error(`${err} 🔥`);
+          renderError(`Something went wrong ${err.message}. Try again!`);
+        });
     });
 };
-getCountryData('bangladesh');
+btn.addEventListener('click', function () {
+  getCountryData('bangladesh');
+});
