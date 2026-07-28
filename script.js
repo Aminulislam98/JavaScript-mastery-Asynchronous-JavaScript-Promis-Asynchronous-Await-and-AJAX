@@ -15,9 +15,9 @@ const countriesContainer = document.querySelector('.countries');
 // https://countries-api-836d.onrender.com/countries/
 
 // Render country
-const renderCountry = function (data) {
+const renderCountry = function (data, neighbour) {
   const html = ` 
-   <article class="country">
+   <article class="country ${neighbour}">
         <img class="country__img" src="${data.flag}" />
         <div class="country__data">
             <h3 class="country__name">${data.name}</h3>
@@ -58,12 +58,12 @@ const getCountryAndNeighbor = function (country) {
     request2.addEventListener('load', function (country) {
       const data2 = JSON.parse(this.responseText);
       console.log(data2);
-      renderCountry(data2);
+      renderCountry(data2, 'neighbour');
     });
   });
 };
 
-getCountryAndNeighbor('portugal');
+getCountryAndNeighbor('Palestine');
 
 // How the Web works: Request and response
 //  TCP stands for transmission control protocol
