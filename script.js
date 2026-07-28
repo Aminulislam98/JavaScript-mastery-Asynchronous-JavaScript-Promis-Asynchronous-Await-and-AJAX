@@ -58,13 +58,12 @@ const getCountryAndNeighbor = function (country) {
     request2.addEventListener('load', function (country) {
       const data2 = JSON.parse(this.responseText);
       console.log(data2);
+      renderCountry(data2);
     });
   });
 };
 
-getCountryAndNeighbor('bangladesh');
-getCountryAndNeighbor('united kingdom');
-getCountryAndNeighbor('germany');
+getCountryAndNeighbor('portugal');
 
 // How the Web works: Request and response
 //  TCP stands for transmission control protocol
