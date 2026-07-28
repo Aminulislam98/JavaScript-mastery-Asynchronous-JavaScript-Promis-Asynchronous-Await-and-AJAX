@@ -13,17 +13,10 @@ const countriesContainer = document.querySelector('.countries');
 
 // AJAX stand for asynchronous javaScript and XML
 // https://countries-api-836d.onrender.com/countries/
-const getCountry = function (country) {
-  const request = new XMLHttpRequest();
-  request.open(
-    'GET',
-    `https://countries-api-836d.onrender.com/countries/name/${country}`,
-  );
-  request.send();
-  request.addEventListener('load', function () {
-    const [data] = JSON.parse(this.responseText);
-    console.log(data);
-    const html = ` 
+
+// Render country
+const renderCountry = function (data) {
+  const html = ` 
    <article class="country">
         <img class="country__img" src="${data.flag}" />
         <div class="country__data">
@@ -35,14 +28,43 @@ const getCountry = function (country) {
         </div>
     </article>
   `;
-    countriesContainer.insertAdjacentHTML('beforeend', html);
-    countriesContainer.style.opacity = 1;
+  countriesContainer.insertAdjacentHTML('beforeend', html);
+  countriesContainer.style.opacity = 1;
+};
+const getCountryAndNeighbor = function (country) {
+  // AJAX call country 1
+  const request = new XMLHttpRequest();
+  request.open(
+    'GET',
+    `https://countries-api-836d.onrender.com/countries/name/${country}`,
+  );
+  request.send();
+  request.addEventListener('load', function () {
+    const [data] = JSON.parse(this.responseText);
+    // Render country 1
+    renderCountry(data);
+
+    // get neighbor country 2
+    const neighbor = data.borders?.[0];
+    if (!neighbor) return;
+    console.log('this is neighbor:', neighbor);
+    // AJAX call country 2
+    const request2 = new XMLHttpRequest();
+    request2.open(
+      'GET',
+      `https://countries-api-836d.onrender.com/countries/alpha/${neighbor}`,
+    );
+    request2.send();
+    request2.addEventListener('load', function (country) {
+      const data2 = JSON.parse(this.responseText);
+      console.log(data2);
+    });
   });
 };
 
-getCountry('bangladesh');
-getCountry('united kingdom');
-getCountry('germany');
+getCountryAndNeighbor('bangladesh');
+getCountryAndNeighbor('united kingdom');
+getCountryAndNeighbor('germany');
 
 // How the Web works: Request and response
 //  TCP stands for transmission control protocol
