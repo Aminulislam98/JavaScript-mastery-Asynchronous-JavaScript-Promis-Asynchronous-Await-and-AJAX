@@ -81,10 +81,21 @@ const renderCountry = function (data, neighbour) {
 // console.log(request);
 
 const getCountryData = function (country) {
+  // country 1
   fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
     .then(function (response) {
       return response.json();
     })
-    .then(data => renderCountry(data[0]));
+    .then(data => {
+      renderCountry(data[0]);
+      const neighbor = data[0].borders[0];
+      if (!neighbor) return;
+      // Country 2
+      fetch(
+        `https://countries-api-836d.onrender.com/countries/alpha/${neighbor}`,
+      )
+        .then(response => response.json())
+        .then(data => renderCountry(data, 'neighbour'));
+    });
 };
 getCountryData('bangladesh');
