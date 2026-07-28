@@ -16,7 +16,7 @@ const countriesContainer = document.querySelector('.countries');
 
 // Render country
 const renderCountry = function (data, neighbour) {
-  const html = ` 
+  const html = `
    <article class="country ${neighbour}">
         <img class="country__img" src="${data.flag}" />
         <div class="country__data">
@@ -31,40 +31,60 @@ const renderCountry = function (data, neighbour) {
   countriesContainer.insertAdjacentHTML('beforeend', html);
   countriesContainer.style.opacity = 1;
 };
-const getCountryAndNeighbor = function (country) {
-  // AJAX call country 1
-  const request = new XMLHttpRequest();
-  request.open(
-    'GET',
-    `https://countries-api-836d.onrender.com/countries/name/${country}`,
-  );
-  request.send();
-  request.addEventListener('load', function () {
-    const [data] = JSON.parse(this.responseText);
-    // Render country 1
-    renderCountry(data);
+// const getCountryAndNeighbor = function (country) {
+//   // AJAX call country 1
+//   const request = new XMLHttpRequest();
+//   request.open(
+//     'GET',
+//     `https://countries-api-836d.onrender.com/countries/name/${country}`,
+//   );
+//   request.send();
+//   request.addEventListener('load', function () {
+//     const [data] = JSON.parse(this.responseText);
+//     // Render country 1
+//     renderCountry(data);
 
-    // get neighbor country 2
-    const neighbor = data.borders?.[0];
-    if (!neighbor) return;
-    console.log('this is neighbor:', neighbor);
-    // AJAX call country 2
-    const request2 = new XMLHttpRequest();
-    request2.open(
-      'GET',
-      `https://countries-api-836d.onrender.com/countries/alpha/${neighbor}`,
-    );
-    request2.send();
-    request2.addEventListener('load', function (country) {
-      const data2 = JSON.parse(this.responseText);
-      console.log(data2);
-      renderCountry(data2, 'neighbour');
-    });
-  });
-};
+//     // get neighbor country 2
+//     const neighbor = data.borders?.[0];
+//     if (!neighbor) return;
+//     console.log('this is neighbor:', neighbor);
+//     // AJAX call country 2
+//     const request2 = new XMLHttpRequest();
+//     request2.open(
+//       'GET',
+//       `https://countries-api-836d.onrender.com/countries/alpha/${neighbor}`,
+//     );
+//     request2.send();
+//     request2.addEventListener('load', function (country) {
+//       const data2 = JSON.parse(this.responseText);
+//       console.log(data2);
+//       renderCountry(data2, 'neighbour');
+//     });
+//   });
+// };
 
-getCountryAndNeighbor('Palestine');
+// getCountryAndNeighbor('Palestine');
 
 // How the Web works: Request and response
 //  TCP stands for transmission control protocol
 // IP stands for Internat protocol
+
+// const request = new XMLHttpRequest();
+// request.open(
+//   'GET',
+//   `https://countries-api-836d.onrender.com/countries/name/${country}`,
+// );
+// request.send();
+// const request = fetch(
+//   `https://countries-api-836d.onrender.com/countries/name/bangladesh`,
+// );
+// console.log(request);
+
+const getCountryData = function (country) {
+  fetch(`https://countries-api-836d.onrender.com/countries/name/${country}`)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(data => renderCountry(data[0]));
+};
+getCountryData('bangladesh');
