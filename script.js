@@ -119,3 +119,16 @@ const getCountryData = function (country) {
 btn.addEventListener('click', function () {
   getCountryData('japan');
 });
+
+// exercise
+const whereAmI = function (let, lng) {
+  fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`)
+    .then(res => res.json())
+    .then(data => {
+      data => {
+        console.log(data);
+        console.log(`You are in ${data.city}, ${data.country}`);
+      };
+    });
+};
+whereAmI(52.508, 13.381);
