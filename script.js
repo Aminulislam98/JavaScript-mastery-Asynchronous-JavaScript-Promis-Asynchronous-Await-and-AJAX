@@ -101,7 +101,7 @@ const getCountryData = function (country) {
     .then(data => {
       renderCountry(data[0]);
       const neighbor = data[0].borders[0];
-      if (!neighbor) return;
+      if (!neighbor) throw new Error('Neighbor not found.');
       // Country 2
       return getJSON(
         `https://countries-api-836d.onrender.com/countries/alpha/${neighbor}`,
