@@ -121,14 +121,18 @@ btn.addEventListener('click', function () {
 });
 
 // exercise
-const whereAmI = function (let, lng) {
+const whereAmI = function (lat, lng) {
   fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`)
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error(`Problem with geoCodeing ${res.status}`);
+      return res.json();
+    })
     .then(data => {
-      data => {
-        console.log(data);
-        console.log(`You are in ${data.city}, ${data.country}`);
-      };
-    });
+      console.log(data);
+      console.log(`You are in ${data.city}, ${data.country}`);
+    })
+    .catch(err => console.log(`${err.message} 🔥`));
 };
+whereAmI(52.508, 13.381);
+whereAmI(52.508, 13.381);
 whereAmI(52.508, 13.381);
