@@ -137,8 +137,17 @@ const whereAmI = function (lat, lng) {
 // whereAmI(52.508, 13.381);
 // whereAmI(52.508, 13.381);
 //  practicing fetch api
-console.log('Test Start');
-setTimeout(() => console.log('0 Sec timer'), 0);
-Promise.resolve('Resolve promise 1').then(res => console.log(res));
-console.log('Test end');
+// console.log('Test Start');
+// setTimeout(() => console.log('0 Sec timer'), 0);
+// Promise.resolve('Resolve promise 1').then(res => );
+// console.log('Test end');
 // Micro task queue has priority over call back queue
+
+const lotteryPromise = new Promise(function (resolve, reject) {
+  if (Math.random() >= 0.5) {
+    resolve('You WIN 💰');
+  }
+  reject('You lost your money 💩');
+});
+
+lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
