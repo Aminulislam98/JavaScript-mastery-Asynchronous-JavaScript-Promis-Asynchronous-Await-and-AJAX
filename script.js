@@ -154,12 +154,13 @@ const lotteryPromise = new Promise(function (resolve, reject) {
   }, 2000);
 });
 
-lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
+// lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
 
 // Promisifying setTimeout
 
 // Promisifying the geoLocation API
 navigator.geolocation.getCurrentPosition(
   position => console.log(position),
-  err,
+  err => console.log(err),
 );
+console.log('Getting position');
