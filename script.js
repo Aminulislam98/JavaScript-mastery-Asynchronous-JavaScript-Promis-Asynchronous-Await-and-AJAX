@@ -157,3 +157,9 @@ const lotteryPromise = new Promise(function (resolve, reject) {
 lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
 
 // Promisifying setTimeout
+
+// Promisifying the geoLocation API
+navigator.geolocation.getCurrentPosition(
+  position => console.log(position),
+  err,
+);
