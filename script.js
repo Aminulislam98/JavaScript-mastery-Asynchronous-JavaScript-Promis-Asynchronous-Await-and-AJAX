@@ -163,4 +163,4 @@ navigator.geolocation.getCurrentPosition(
   position => console.log(position),
   err => console.log(err),
 );
-// console.log('Getting position');
+console.log('Getting position');
